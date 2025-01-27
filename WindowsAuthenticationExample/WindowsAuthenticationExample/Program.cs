@@ -3,10 +3,16 @@ using WindowsAuthenticationExample.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
+                 .AddInteractiveServerComponents()
+                 .AddInteractiveWebAssemblyComponents()
+                 .AddAuthenticationStateSerialization(options => options.SerializeAllClaims = true);
+
+
+builder.Services.AddAuthenticationStateDeserialization();
 
 var app = builder.Build();
 

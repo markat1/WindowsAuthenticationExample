@@ -9,6 +9,8 @@
   <ItemGroup>
     <ProjectReference Include="..\WindowsAuthenticationExample.Client\WindowsAuthenticationExample.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
   </ItemGroup>
 
 </Project>

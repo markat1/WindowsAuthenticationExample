@@ -1,0 +1,58 @@
+﻿
+<h3>UserClaims</h3>
+
+@attribute [Authorize(Roles = "role1, role2")]
+
+
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+
+
+@if (claims.Any())
+{
+    <ul>
+        @foreach (var claim in claims)
+        {
+            <li><b>@claim.Type:</b> @claim.Value</li>
+        }
+    </ul>
+}
+
+
+<p>@RendererInfo.Name</p>
+
+<p>Is interactive ? @RendererInfo.IsInteractive</p>
+
+<AuthorizeView>
+    <p>Hello, @(!string.IsNullOrEmpty(context.User.Identity?.Name) ? "Authenticated" : "Not authenticated")</p>
+</AuthorizeView>
+
+
+<AuthorizeView>
+    <p>Hello, @context.User.Identity?.Name</p>
+    <p>@context.User.Identity.IsAuthenticated</p>
+    <p>is in role role1?: @context.User.IsInRole("role1")</p> 
+    <p>is in role role2?: @context.User.IsInRole("role2")</p>
+
+</AuthorizeView>
+
+
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthState { get; set; }
+
+    private IEnumerable<Claim> claims = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState == null)
+        {
+            return;
+        }
+
+        var authState = await AuthState;
+        claims = authState.User.Claims;
+    }
+
+}
