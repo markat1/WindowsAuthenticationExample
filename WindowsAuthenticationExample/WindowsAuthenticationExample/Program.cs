@@ -16,6 +16,9 @@ builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthenticationStateDeserialization();
 
+builder.Services.AddHttpContextAccessor();
+
+
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
