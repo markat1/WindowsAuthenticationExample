@@ -29,17 +29,18 @@
     <p>Hello, @(!string.IsNullOrEmpty(context.User.Identity?.Name) ? "Authenticated" : "Not authenticated")</p>
 </AuthorizeView>
 
-@* Roles in authorizeview example shows false, when they should show true, but works when I use group id instead  *@
+@* Roles in authorizeview example shows false, when they should show true *@
 <AuthorizeView>
     <p>Hello, @context.User.Identity?.Name</p>
     <p>@context.User.Identity.IsAuthenticated</p>
     <p>is in role role1?: @context.User.IsInRole("role1")</p> @* false *@
     <p>is in role role2?: @context.User.IsInRole("role2")</p> @* false *@
-    <p>is in role role2?: @context.User.IsInRole("S-1-5-32-544....")</p> @* group id - true *@
 
 </AuthorizeView>
 
-
+<AuthorizeView Roles="role2,role1">
+    <p>Hello, @(!string.IsNullOrEmpty(context.User.Identity?.Name) ? "Authenticated" : "Not authenticated")</p>
+</AuthorizeView>
 
 @code {
 
