@@ -1,8 +1,7 @@
-using WindowsAuthenticationExample.Client.Pages;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using WindowsAuthenticationExample.Components;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 
 // Add services to the container.
@@ -12,7 +11,15 @@ builder.Services.AddRazorComponents()
                  .AddAuthenticationStateSerialization(options => options.SerializeAllClaims = true);
 
 
+builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+                       .AddNegotiate();
+
 builder.Services.AddAuthenticationStateDeserialization();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = options.DefaultPolicy;
+});
 
 var app = builder.Build();
 
